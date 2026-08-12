@@ -49,7 +49,7 @@ export function LinkForm() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             required
-            className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-gray-50"
+            className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-[var(--color-background-default)] text-[var(--color-text-primary)]"
           />
         </div>
 
@@ -62,7 +62,7 @@ export function LinkForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-[var(--color-background-default)]"
+            className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-[var(--color-background-default)] text-[var(--color-text-primary)]"
           />
         </div>
       </div>

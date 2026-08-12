@@ -34,11 +34,15 @@ export async function middleware(req: NextRequest) {
     .single();
 
   if (link?.original_url) {
-    // Analytics (opcional): Actualizar el contador de clicks de manera asíncrona usando fetch o rpc.
-    // Para simplificar, aquí redirigimos directamente.
+    // Analytics: Actualizar el contador usando la Edge Function.
+    const { data: fnData, error: fnError } = await supabase.functions.invoke('increment-clicks', {
+      body: { link_id: link.id }
+    });
+    console.log("Edge Function Response:", { fnData, fnError });
+
     
-    // Redirección permanente
-    return NextResponse.redirect(new URL(link.original_url), 301);
+    // Redirección temporal (302) para que el navegador no cachee y podamos trackear visitas repetidas
+    return NextResponse.redirect(new URL(link.original_url), 302);
   }
 
   // Si no se encuentra, continuar a la página de 404
