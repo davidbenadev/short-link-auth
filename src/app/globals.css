@@ -21,6 +21,29 @@
   --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
 
+@media (prefers-color-scheme: dark) {
+  @theme inline {
+    --color-primary: #60A5FA;
+    --color-primary-foreground: #000000;
+    --color-primary-hover: #3B82F6;
+    
+    --color-background-default: #09090B;
+    --color-background-paper: #18181B;
+    
+    --color-text-primary: #FAFAFA;
+    --color-text-secondary: #A1A1AA;
+    --color-text-muted: #71717A;
+    
+    --color-accent: #A78BFA;
+    --color-accent-foreground: #000000;
+    
+    --color-destructive: #F87171;
+    --color-destructive-foreground: #000000;
+
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  }
+}
+
 body {
   background-color: var(--color-background-default);
   color: var(--color-text-primary);

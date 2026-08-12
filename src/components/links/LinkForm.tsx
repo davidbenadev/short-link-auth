@@ -6,7 +6,7 @@ import { Link as LinkIcon, Loader2 } from 'lucide-react';
 
 export function LinkForm() {
   const [url, setUrl] = useState('');
-  const [domain, setDomain] = useState('');
+  const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,12 +20,12 @@ export function LinkForm() {
       new URL(url); // will throw if invalid URL
       
       await createShortLink({ 
-        originalUrl: url, 
-        customDomain: domain.trim() === '' ? undefined : domain.trim() 
+        title,
+        originalUrl: url
       });
       
       setUrl('');
-      setDomain('');
+      setTitle('');
     } catch (err: any) {
       setError(err.message || 'URL inválida o error en el servidor');
     } finally {
@@ -54,16 +54,16 @@ export function LinkForm() {
         </div>
 
         <div className="flex flex-col space-y-1">
-          <label htmlFor="domain" className="text-sm font-medium text-[var(--color-text-secondary)]">Dominio Personalizado (Opcional)</label>
+          <label htmlFor="title" className="text-sm font-medium text-[var(--color-text-secondary)]">Título (Obligatorio)</label>
           <input 
-            id="domain"
+            id="title"
             type="text" 
-            placeholder="ej. s.midominio.com" 
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-gray-50"
+            placeholder="Ej. Campaña de Marketing 2026" 
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all bg-[var(--color-background-default)]"
           />
-          <p className="text-xs text-[var(--color-text-muted)]">Si se deja en blanco, usará el dominio configurado globalmente.</p>
         </div>
       </div>
 

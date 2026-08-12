@@ -19,8 +19,8 @@ export default async function DashboardPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="max-w-4xl mx-auto p-6 min-h-screen">
-      <header className="mb-8 flex justify-between items-center">
+    <div className="max-w-6xl mx-auto p-6 min-h-screen">
+      <header className="mb-10 flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-6">
         <div>
           <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Dashboard</h1>
           <p className="text-[var(--color-text-secondary)] mt-1">Gestiona tus enlaces cortos y códigos QR</p>
@@ -30,33 +30,40 @@ export default async function DashboardPage() {
           <form action={logout}>
             <button 
               type="submit"
-              className="px-3 py-1.5 text-sm font-medium text-zinc-600 bg-zinc-100 hover:bg-zinc-200 dark:text-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md transition-colors"
+              className="px-4 py-2 text-sm font-medium text-zinc-700 bg-zinc-100 hover:bg-zinc-200 dark:text-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors"
             >
-              Salir
+              Cerrar Sesión
             </button>
           </form>
         </div>
       </header>
 
-      <LinkForm />
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div className="md:col-span-4 md:sticky md:top-6">
+          <LinkForm />
+        </div>
 
-      <div className="space-y-4 mt-8">
-        <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">Tus Enlaces</h2>
-        
-        {links?.length === 0 && (
-          <p className="text-[var(--color-text-muted)] text-center py-8">No tienes enlaces aún. Crea uno arriba.</p>
-        )}
+        <div className="md:col-span-8 space-y-4">
+          <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-6">Tus Enlaces</h2>
+          
+          {links?.length === 0 && (
+            <div className="text-center py-16 bg-[var(--color-background-paper)] rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+              <p className="text-[var(--color-text-muted)]">No tienes enlaces aún. Crea uno a la izquierda.</p>
+            </div>
+          )}
 
-        <div className="grid gap-4">
-          {links?.map((link) => (
-            <LinkCard 
-              key={link.id}
-              id={link.id}
-              originalUrl={link.original_url}
-              shortSlug={link.short_slug}
-              customDomain={link.custom_domain}
-            />
-          ))}
+          <div className="grid grid-cols-1 gap-4">
+            {links?.map((link) => (
+              <LinkCard 
+                key={link.id}
+                id={link.id}
+                title={link.title}
+                originalUrl={link.original_url}
+                shortSlug={link.short_slug}
+                clicks={link.clicks || 0}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

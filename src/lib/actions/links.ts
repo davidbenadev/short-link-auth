@@ -3,7 +3,7 @@
 import { createClient } from '../supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function createShortLink({ originalUrl, customDomain }: { originalUrl: string, customDomain?: string }) {
+export async function createShortLink({ title, originalUrl }: { title: string, originalUrl: string }) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
@@ -20,9 +20,9 @@ export async function createShortLink({ originalUrl, customDomain }: { originalU
     .from('links')
     .insert([{ 
       user_id: user.id, 
+      title,
       original_url: originalUrl, 
       short_slug: shortSlug,
-      custom_domain: customDomain
     }])
     .select()
     .single();
